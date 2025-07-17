@@ -3,6 +3,7 @@ import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import type { Movie } from "../../types/movie";
 
+import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import SearchBar from "../SearchBar/SearchBar";
 import MovieGrid from "../MovieGrid/MovieGrid";
 import Loader from "../Loader/Loader";
@@ -39,7 +40,6 @@ function App() {
     } catch {
       setLoader(false);
       setError(true);
-      toast.error("There was an error, please try again.");
     } finally {
       setLoader(false);
     }
@@ -47,7 +47,7 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-      {isLoading && <Loader />}
+      {isLoading ? <Loader /> : <ErrorMessage/>}
       {!error && movies.length > 0 && (
         <MovieGrid movies={movies} onSelect={openModal} />
       )}
