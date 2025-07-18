@@ -31,14 +31,12 @@ function App() {
       setLoader(true);
       setError(false);
       const movies = await fetchMovies(query);
-      // console.log("фильмы", movies);
       setMovies(movies);
       if (movies.length === 0) {
         toast.error("No movies found for your request.");
         return;
       }
     } catch {
-      setLoader(false);
       setError(true);
     } finally {
       setLoader(false);
@@ -47,7 +45,8 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-      {isLoading ? <Loader /> : <ErrorMessage/>}
+      {isLoading && <Loader />}
+      {error && <ErrorMessage/>}
       {!error && movies.length > 0 && (
         <MovieGrid movies={movies} onSelect={openModal} />
       )}
