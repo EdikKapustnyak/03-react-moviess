@@ -30,6 +30,7 @@ function App() {
     try {
       setLoader(true);
       setError(false);
+      setMovies([])
       const movies = await fetchMovies(query);
       setMovies(movies);
       if (movies.length === 0) {
@@ -38,6 +39,7 @@ function App() {
       }
     } catch {
       setError(true);
+      setMovies([])
     } finally {
       setLoader(false);
     }
